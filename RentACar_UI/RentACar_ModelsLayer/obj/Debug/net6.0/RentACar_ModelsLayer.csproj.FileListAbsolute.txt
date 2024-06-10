@@ -1,0 +1,12 @@
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\bin\Debug\net6.0\RentACar_ModelsLayer.deps.json
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\bin\Debug\net6.0\RentACar_ModelsLayer.dll
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\bin\Debug\net6.0\RentACar_ModelsLayer.pdb
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\obj\Debug\net6.0\RentACar_ModelsLayer.csproj.AssemblyReference.cache
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\obj\Debug\net6.0\RentACar_ModelsLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\obj\Debug\net6.0\RentACar_ModelsLayer.AssemblyInfoInputs.cache
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\obj\Debug\net6.0\RentACar_ModelsLayer.AssemblyInfo.cs
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\obj\Debug\net6.0\RentACar_ModelsLayer.csproj.CoreCompileInputs.cache
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\obj\Debug\net6.0\RentACar_ModelsLayer.dll
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\obj\Debug\net6.0\refint\RentACar_ModelsLayer.dll
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\obj\Debug\net6.0\RentACar_ModelsLayer.pdb
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_ModelsLayer\obj\Debug\net6.0\ref\RentACar_ModelsLayer.dll

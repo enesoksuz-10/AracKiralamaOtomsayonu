@@ -1,0 +1,239 @@
+﻿@model VehicleIndexModel
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <!-- title of site -->
+    <title>Bin Git</title>
+    <script src="https://kit.fontawesome.com/70923d7846.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-CrTYwIfjzISNRZQbVBUHhnXO1Tc6PVIqov3+Y2V9E4D+DOia4Qk/sGF0v7nIzrC0RsQxFnsSDiD2etlLv3VrdQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--flaticon.css-->
+    <link rel="stylesheet" href="~/indexstyle/assets/css/flaticon.css">
+    <!--style.css-->
+    <link rel="stylesheet" href="~/indexstyle/assets/css/style.css">
+</head>
+<style>
+    .single-service-item:hover {
+        background-color: #dc3545 !important; /* Hover rengini değiştir */
+        border-color: #dc3545 !important; /* Kenarlık rengini değiştir */
+    }
+
+    .card-hover:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ddlCities").change(function () {
+            var cityId = $(this).val();
+            $("#ddlDistrict").empty();
+            $("#ddlDistrict").append("<option value='-1'>İlçe Seçiniz..</option>");
+            $.ajax({
+                url: "/Districts/GetByCities/" + cityId,
+                method: "post",
+                success: function (response) {
+                    if (response.response) {
+                        for (var i = 0; i < response.district.length; i++) {
+                            $("#ddlDistrict").append("<option value='" + response.district[i].districtName + "'>" + response.district[i].districtName + "</option>");
+                        }
+                    }
+                }
+            });
+        });
+
+        $("#searchButton").click(function () {
+            var selectedCity = $("#ddlCities option:selected").text();
+            var selectedDistrict = $("#ddlDistrict option:selected").text();
+            if (selectedCity != 'Şehir Seçiniz..' && selectedDistrict != 'İlçe Seçiniz..') {
+                window.location.href = "/Vehicles/Index?city=" + encodeURIComponent(selectedCity) + "&district=" + encodeURIComponent(selectedDistrict);
+            } else {
+                alert("Lütfen şehir ve ilçe seçiniz.");
+            }
+        });
+    });
+</script>
+
+
+<section class="w3l-main-slider position-relative" id="home">
+    <div class="companies20-content">
+        <div class="item">
+            <div class="slider-info banner-view bg bg2">
+                <div class="banner-info">
+                    <div class="container">
+                        <div class="banner-info-bg">
+                            <div class="bannerswrite">
+                                <p style="margin-top:40%;" class="bannerwrite">Hayatın Tadı Yolda Çıkar.<br><br><span class="bannerwritecolor">Araç Kirala,</span> Tadını Çıkar!</p><br><br>
+                                <div class="form-frame">
+                                    <div class="form-wrapper">
+                                        <div class="dropdowns">
+                                            <select id="ddlCities">
+                                                <option value="-1">Şehir Seçiniz..</option>
+                                                @foreach (var item in Model.Cities)
+                                                {
+                                                    <option value="@item.CityID">@item.CityName</option>
+                                                }
+                                            </select>
+                                            <select id="ddlDistrict">
+                                                <option value="-1">İlçe Seçiniz..</option>
+                                            </select>
+                                        </div>
+                                        <button type="button" id="searchButton">Araç Kirala</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //banner-slider-->
+<!--service start -->
+<div class="text-center mt-5 mb-3">
+    <p style=" font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 26px; font-weight:700; color:#4f4f4f;">Detaylı Bilgi</p>
+</div>
+<section id="service" class="service" style="margin-top:-250px;">
+    <div class="container">
+        <div class="service-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car"></i>
+                        </div>
+                        <h2><a href="/Vehicles/Index">Araçları Detaylı İncele</a></h2>
+                        <p>
+                            Keyifli sürüş deneyimine hazır mısınız? Araçlarımızı detaylı inceleyerek, ihtiyaçlarınıza en uygun olanı seçin ve yolculuğa başlamak için adım atın!
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car-repair"></i>
+                        </div>
+                        <h2><a href="/Expertise/Index">Araçlarımızın Ekspertiz Bilgisi</a></h2>
+                        <p>
+                            Güvenliğiniz bizim önceliğimizdir. Araçlarımız titizlikle ekspertiz edilmiş ve kontrol edilmiştir, böylece sizin için en güvenli ve güvenilir seçenekleri sunabiliriz.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car-1"></i>
+                        </div>
+                        <h2><a href="/Document/Index">Araçlarımızı Kiralamak İçin Gerekli Evraklar</a></h2>
+                        <p>
+                            Araç kiralama için gerekli evraklar basittir: kimlik, sürücü belgesi ve kredi kartı. Hemen aracınızı kiralayın ve seyahate başlayın!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.container-->
+</section><!--/.service-->
+<!--service end-->
+<!-- /features-4 -->
+<section class="features-4">
+    <div class="features4-block py-5">
+        <div class="container py-lg-4">
+            <div class="title-content text-center mb-lg-5 mt-4">
+                <h3 class="hny-title">Uygun Fiyatlı Araçlar</h3>
+                <p class="fea-para">Çeşitli marka ve model seçenekleriyle araç listemizi keşfedin ve ideal aracınızı bulun.</p>
+            </div>
+            <div class="row ">
+                @foreach (var item in Model.Vehicles)
+                {
+                    <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                        <a href="/Vehicles/Details/@item.VehicleID" class="w-100">
+                            <div class="card card-hover h-100">
+                                <img class="card-img-top" src="@item.VehiclePhoto" alt="@item.VehicleBrand">
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.VehicleBrand @item.VehicleModel</h5>
+                                    <p style="color:gray;" class="card-title">@item.CityName @item.District</p>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="card-text">
+                                                <i style="color:black;" class="fas fa-gas-pump"></i>
+                                                @item.VehicleFuel
+                                            </p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p class="card-text">
+                                                <i style="color:black;" class="fa-solid fa-gauge"></i>
+                                                @item.VehicleFuelAmount
+                                            </p>
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div><br />
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="card-text">
+                                                <i style="color:black;" class="fa-solid fa-paint-roller"></i>
+                                                @item.VehicleColor
+                                            </p>
+                                        </div>
+                                    </div><hr />
+                                    <p style="color:black;" class="card-text">Fiyat: @item.VehiclePrice TL</p><br />
+                                    <button type="button" class="btn btn-danger float-left">Detaylar</button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- Sayfalama Butonları -->
+        <div id="paginationButtons" class="text-center mt-4"></div>
+    </div>
+</section>
+<!--//features-4 -->
+<script>
+    var cardsPerPage = 3; // Her sayfadaki kart sayısı
+    var currentPage = 1; // Başlangıçta 1. sayfadayız
+    var totalCards = document.querySelectorAll('.card-hover').length; // Toplam kart sayısı
+    var totalPages = Math.ceil(totalCards / cardsPerPage); // Toplam sayfa sayısı
+    // Sayfa numarasını güncellemek için kullanılan fonksiyon
+    function updatePageNumber() {
+        document.getElementById('paginationButtons').innerHTML = `
+                                                    <button id="prevPageBtn" class="btn btn-dark" onclick="prevPage()" ${currentPage === 1 ? 'disabled' : ''}> < Geri </button>
+                                                    <button id="nextPageBtn" class="btn btn-dark" onclick="nextPage()" ${currentPage === totalPages ? 'disabled' : ''}> İleri > </button>
+                                                <p>Page ${currentPage} of ${totalPages}</p>
+                                            `;
+    }
+    // Belirli bir sayfaya gitmek için kullanılan fonksiyon
+    function goToPage(pageNum) {
+        var startIndex = (pageNum - 1) * cardsPerPage;
+        var endIndex = startIndex + cardsPerPage;
+        var cards = document.querySelectorAll('.card-hover');
+        cards.forEach(function (card, index) {
+            if (index >= startIndex && index < endIndex) {
+                card.parentElement.style.display = 'block';
+            } else {
+                card.parentElement.style.display = 'none';
+            }
+        });
+        currentPage = pageNum;
+        updatePageNumber();
+    }
+    // Bir sonraki sayfaya gitmek için kullanılan fonksiyon
+    function nextPage() {
+        if (currentPage < totalPages) {
+            goToPage(currentPage + 1);
+        }
+    }
+    // Bir önceki sayfaya gitmek için kullanılan fonksiyon
+    function prevPage() {
+        if (currentPage > 1) {
+            goToPage(currentPage - 1);
+        }
+    }
+    // İlk sayfayı yükle
+    goToPage(1);
+</script>

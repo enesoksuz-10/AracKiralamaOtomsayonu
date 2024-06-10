@@ -1,0 +1,120 @@
+﻿
+<header id="site-header" class="fixed-top navcolor">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <h1>
+                <a class="navbar-brand navclor" href="index.html">
+                    <span>B</span>in <span>G</span>it
+                </a>
+            </h1>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa icon-expand fa-bars"></span>
+                <span class="fa icon-close fa-times"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link navclor active" href="/Home/Index">AnaSayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navclor" href="/Vehicles/Index">Araçlarımız</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navclor" href="/About/Index">Hakkımızda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navclor" href="/Contact/Index">İletişim</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav search-right mt-lg-0 mt-2">
+                    @if (!ViewBag.IsActiveUser)
+                    {
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false" id="loginDropdown">
+                                    Giriş Yap
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                                    <a class="dropdown-item" href="/Authentication/LogIn">Kullanıcı Girişi</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/AdminPanel/Authentication/LogIn">Yönetici Girişi</a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @ViewBag.ActiveUserName @ViewBag.ActiveLastName
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <form action="/Authentication/LogOut" method="post">
+                                       <button style="margin-top:-10px;" type="submit" class="dropdown-item text-black bg-gray font-weight-bold text-center">Çıkış Yap</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <!-- //toggle switch for light and dark theme -->
+                <!-- search popup -->
+                <div id="search" class="pop-overlay">
+                    <div class="popup">
+                        <form action="#" method="GET" class="d-sm-flex">
+                            <input type="search" placeholder="Search.." name="search" required="required" autofocus>
+                            <button type="submit">Search</button>
+                            <a class="close" href="#url">&times;</a>
+                        </form>
+                    </div>
+                </div>
+                <!-- /search popup -->
+            </div>
+            <!-- toggle switch for light and dark theme -->
+            <div class="mobile-position">
+                <nav class="navigation">
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox">
+                            <div class="mode-container">
+                                <i class="gg-sun"></i>
+                                <i class="gg-moon"></i>
+                            </div>
+                        </label>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var currentUrl = window.location.pathname.toLowerCase().replace(/\/$/, ''); // remove trailing slash
+        var navLinks = document.querySelectorAll('.navbar-nav .nav-item .nav-link');
+
+        navLinks.forEach(function (link) {
+            var linkUrl = link.getAttribute('href').toLowerCase().replace(/\/$/, ''); // remove trailing slash
+
+            if (currentUrl === linkUrl || (currentUrl.startsWith(linkUrl) && linkUrl !== '/')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // Handle the root path ("/") separately
+        if (currentUrl === '' || currentUrl === '/') {
+            navLinks.forEach(function (link) {
+                if (link.getAttribute('href').toLowerCase() === '/home/index') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+    });
+</script>

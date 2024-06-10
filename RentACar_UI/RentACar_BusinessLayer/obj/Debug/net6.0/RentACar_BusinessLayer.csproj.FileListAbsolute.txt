@@ -1,0 +1,17 @@
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\bin\Debug\net6.0\RentACar_BusinessLayer.deps.json
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\bin\Debug\net6.0\RentACar_BusinessLayer.dll
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\bin\Debug\net6.0\RentACar_BusinessLayer.pdb
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\bin\Debug\net6.0\RentACar_DataAccessLayer.dll
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\bin\Debug\net6.0\RentACar_ModelsLayer.dll
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\bin\Debug\net6.0\RentACar_DataAccessLayer.pdb
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\bin\Debug\net6.0\RentACar_ModelsLayer.pdb
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\RentACar_BusinessLayer.csproj.AssemblyReference.cache
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\RentACar_BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\RentACar_BusinessLayer.AssemblyInfoInputs.cache
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\RentACar_BusinessLayer.AssemblyInfo.cs
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\RentACar_BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\RentACar_BusinessLayer.csproj.CopyComplete
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\RentACar_BusinessLayer.dll
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\refint\RentACar_BusinessLayer.dll
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\RentACar_BusinessLayer.pdb
+C:\Users\eneso\OneDrive\Masaüstü\Araç Kiralama\RentACar_UI\RentACar_BusinessLayer\obj\Debug\net6.0\ref\RentACar_BusinessLayer.dll

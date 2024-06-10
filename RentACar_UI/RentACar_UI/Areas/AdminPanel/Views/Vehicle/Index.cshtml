@@ -1,0 +1,497 @@
+﻿@using RentACar_UI.Areas.AdminPanel.Models;
+@model VehicleIndexViewModel
+@{
+    Layout = "/Areas/AdminPanel/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section customCss{
+    <link rel="stylesheet" href="~/adminPanel/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/adminPanel/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="~/adminPanel/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+}
+
+
+@section customScripts{
+    <script src="~/adminPanel/plugins/jquery/jquery.min.js"></script>
+    <script src="~/adminPanel/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/adminPanel/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminPanel/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/adminPanel/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/adminPanel/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/adminPanel/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/adminPanel/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/adminPanel/plugins/jszip/jszip.min.js"></script>
+    <script src="~/adminPanel/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/adminPanel/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/adminPanel/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/adminPanel/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/adminPanel/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#tblVehicle").DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+        $("#ddlCities").change(function () {
+            var cityId = $(this).val();
+            $("#ddlDistrict").empty();
+            $("#ddlDistrict").append(" <option value='-1'>Seçiniz..</option>")
+            $.ajax({
+                url: "/AdminPanel/District/GetByCities/" + cityId,
+                method: "post",
+                success: function (response) {
+                    if (response.response) {
+                        for (var i = 0; i < response.district.length; i++) {
+                            $("#ddlDistrict").append(" <option> " + response.district[i].districtName + "</option>")
+                        }
+                    }
+                }
+            });
+        });
+        $("#btnSave").click(function () {
+            var file = $("#frmVehiclePhoto").prop("files")[0];
+            var formData = new FormData();
+            var model = {
+                VehicleBrand: $("#txtVehicleBrand").val(),
+                VehicleModel: $("#txtVehicleModel").val(),
+                VehicleColor: $("#txtVehicleColor").val(),
+                VehicleFuel: $("#txtVehicleFuel").val(),
+                VehicleFuelAmount: $("#txtVehicleFuelAmount").val(),
+                VehiclePrice: $("#txtVehiclePrice").val(),
+                CityName: $("#ddlCities option:selected").text(),
+                Cities: $("#ddlCities").val(),
+                District: $("#ddlDistrict").val(),
+            }
+            if (!model.VehicleBrand || !model.VehicleModel || !model.VehicleColor || !model.VehicleFuel || !model.VehicleFuelAmount || !model.VehiclePrice || model.Cities == "-1" || model.District == "-1") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Lütfen boş yerleri doldurunuz',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return;
+            }
+            formData.append("selectedFile", file);
+            formData.append("VehicleBrand", model.VehicleBrand);
+            formData.append("VehicleModel", model.VehicleModel);
+            formData.append("VehicleColor", model.VehicleColor);
+            formData.append("VehicleFuel", model.VehicleFuel);
+            formData.append("VehicleFuelAmount", model.VehicleFuelAmount);
+            formData.append("VehiclePrice", model.VehiclePrice);
+            formData.append("CityName", model.CityName);
+            formData.append("Cities", model.Cities);
+            formData.append("District", model.District);
+            $.ajax({
+                url: "/AdminPanel/Vehicle/AddVehicle",
+                method: "post",
+                datatype: "json",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.result && response.basariliMi) {
+                        Swal.fire({
+                            title: "Başarılı",
+                            text: response.message,
+                            icon: "success",
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Kapat"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $("#divNewVeh").modal("hide");
+                                window.location.reload();
+                            }
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                }
+            });
+        });
+        $(document).on("click", ".btnDelete", function () {
+            var vehID = $(this).attr("VehicleID");
+            var tr = $(this).parent().parent();
+            Swal.fire({
+                title: "Ürün Silinecek",
+                text: "Emin misiniz",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sil"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/AdminPanel/Vehicle/DeleteVehicle/" + vehID,
+                        method: "post",
+                        success: function (response) {
+                            if (response.result) {
+                                Swal.fire({
+                                    title: "Başarılı",
+                                    text: response.message,
+                                    icon: "success",
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Kapat"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload();
+                                    }
+                                });
+                            }
+                            else {
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "error",
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        $("#ddlCitiesEdit").change(function () {
+            var cityId = $(this).val();
+            $("#ddlDistrictEdit").empty();
+            $("#ddlDistrictEdit").append(" <option value='-1'>Seçiniz..</option>")
+
+            $.ajax({
+                url: "/AdminPanel/District/GetByCities/" + cityId,
+                method: "post",
+                success: function (response) {
+                    if (response.response) {
+                        for (var i = 0; i < response.district.length; i++) {
+                            $("#ddlDistrictEdit").append(" <option> " + response.district[i].districtName + "</option>")
+                        }
+                    }
+                }
+            });
+        });
+        $(document).on("click", ".btnEdit", function () {
+            var vehID = $(this).attr("VehicleID");
+            $.ajax({
+                url: "/AdminPanel/Vehicle/GetVehicleById/" + vehID,
+                method: "post",
+                success: function (response) {
+                    if (response.result) {
+                        $("#VehicleID").val(response.vehicle.vehicleID);
+                        $("#txtVehicleBrandEdit").val(response.vehicle.vehicleBrand);
+                        $("#txtVehicleModelEdit").val(response.vehicle.vehicleModel);
+                        $("#txtVehicleFuelEdit").val(response.vehicle.vehicleFuel);
+                        $("#txtVehicleFuelAmountEdit").val(response.vehicle.vehicleFuelAmount);
+                        $("#txtVehicleColorEdit").val(response.vehicle.vehicleColor);
+                        $("#txtVehiclePriceEdit").val(response.vehicle.vehiclePrice);
+                        $("#ddlCitiesEdit").val(response.vehicle.cities);
+                        $("#ddlDistrictEdit").val(response.vehicle.district);
+                        $("#ddlVehiclePhotoEdit").val(response.vehicle.vehiclePhoto);
+                    }
+                }
+            });
+        });
+        $("#btnEdit").click(function () {
+            var file = $("#frmVehiclePhotoEdit").prop("files")[0];
+
+            if (!file) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Lütfen boş yerleri doldurunuz'
+                });
+                return;
+            }
+            var formData = new FormData();
+            var model = {
+                VehicleID: $("#VehicleID").val(),
+                VehicleBrand: $("#txtVehicleBrandEdit").val(),
+                VehicleModel: $("#txtVehicleModelEdit").val(),
+                VehicleFuel: $("#txtVehicleFuelEdit").val(),
+                VehicleFuelAmount: $("#txtVehicleFuelAmountEdit").val(),
+                VehicleColor: $("#txtVehicleColorEdit").val(),
+                VehiclePrice: $("#txtVehiclePriceEdit").val(),
+                CityName: $("#ddlCitiesEdit option:selected").text(),
+                Cities: $("#ddlCitiesEdit").val(),
+                District: $("#ddlDistrictEdit").val(),
+            }
+            if (!model.VehicleBrand || !model.VehicleModel || !model.VehicleColor || !model.VehicleFuel || !model.VehicleFuelAmount || !model.VehiclePrice || model.Cities == "-1" || model.District == "-1") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Lütfen boş yerleri doldurunuz'
+                });
+                return;
+            }
+            formData.append("selectedFile", file);
+            formData.append("VehicleID", model.VehicleID);
+            formData.append("VehicleBrand", model.VehicleBrand);
+            formData.append("VehicleModel", model.VehicleModel);
+            formData.append("VehicleColor", model.VehicleColor);
+            formData.append("VehicleFuel", model.VehicleFuel);
+            formData.append("VehicleFuelAmount", model.VehicleFuelAmount);
+            formData.append("VehiclePrice", model.VehiclePrice);
+            formData.append("CityName", model.CityName);
+            formData.append("Cities", model.Cities);
+            formData.append("District", model.District);
+            $.ajax({
+                url: "/AdminPanel/Vehicle/EditVehicle",
+                method: "post",
+                datatype: "json",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.result) {
+                        Swal.fire({
+                            title: "Başarılı",
+                            text: response.message,
+                            icon: "success",
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Kapat"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $("#divEditVeh").modal("hide");
+                                window.location.reload();
+                            }
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+<button type="button" class="btn btn-success m-3" data-toggle="modal" data-target="#divNewVeh">
+    Yeni Araç Ekle
+</button>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Listedeki Tüm Araçlar</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="tblVehicle" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Araba Fotoğrafı</th>
+                            <th>Araba Markası</th>
+                            <th>Araba Modeli</th>
+                            <th>Araba Rengi</th>
+                            <th>Araba Yakıtı</th>
+                            <th>Araba Yakıt Tüketimi</th>
+                            <th>Araba Fiyatı</th>
+                            <th>Araba Şehri</th>
+                            <th>Araba İlçesi</th>
+                            <th>Sil</th>
+                            <th>Düzenle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Vehicles)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@item.VehiclePhoto" style="width:150px;height:150px;" />
+                                </td>
+                                <td>@item.VehicleBrand</td>
+                                <td>@item.VehicleModel</td>
+                                <td>@item.VehicleColor</td>
+                                <td>@item.VehicleFuel</td>
+                                <td>@item.VehicleFuelAmount</td>
+                                <td>@item.VehiclePrice</td>
+                                <td>@item.CityName</td>
+                                <td>@item.District</td>
+                                <td>
+                                    <button VehicleID="@item.VehicleID" class="btn btn-danger btnDelete">
+                                        Sil
+                                    </button>
+                                </td>
+                                <td>
+                                    <button VehicleID="@item.VehicleID" class="btn btn-warning btnEdit" data-toggle="modal" data-target="#divEditVeh">
+                                        Düzenle
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="divNewVeh">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Yeni Araç Ekle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="VehicleBrand">Araç Markası:</label>
+                            <input id="txtVehicleBrand" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+
+                            <label for="VehicleColor">Araç Rengi:</label>
+                            <input id="txtVehicleColor" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="VehicleFuelAmount">Yakıt Miktarı:</label>
+                            <input id="txtVehicleFuelAmount" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Country">İl</label>
+                            <select id="ddlCities" class="custom-select form-control-border">
+                                <option value="-1">Seçiniz..</option>
+                                @foreach (var item in Model.Cities)
+                                {
+                                    <option value="@item.CityID">@item.CityName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="formFile" class="form-label">Fotoğraf Yükle</label>
+                            <input class="form-control" type="file" id="frmVehiclePhoto">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="VehicleModel">Araç Modeli</label>
+                            <input id="txtVehicleModel" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="VehicleFuel">Yakıt Türü:</label>
+                            <input id="txtVehicleFuel" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="VehiclePrice">Araç Fiyatı:</label>
+                            <input id="txtVehiclePrice" type="number" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="District">İlçe</label>
+                            <select class="custom-select form-control-border" id="ddlDistrict">
+                                <option value="-1">Seçiniz..</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default " data-dismiss="modal">Kapat</button>
+                        <button id="btnSave" type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<div class="modal fade" id="divEditVeh">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Araç Güncelle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-6">
+                            <input id="VehicleID" type="hidden" class="form-control" />
+                            <div class="form-group">
+                                <label for="VehicleBrand">Araç Markası:</label>
+                                <input id="txtVehicleBrandEdit" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="VehicleColor">Araç Rengi:</label>
+                                <input id="txtVehicleColorEdit" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="VehicleFuelAmount">Yakıt Miktarı:</label>
+                                <input id="txtVehicleFuelAmountEdit" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Country">İl</label>
+                                <select id="ddlCitiesEdit" class="custom-select form-control-border">
+                                    <option value="-1">Seçiniz..</option>
+                                    @foreach (var item in Model.Cities)
+                                    {
+                                        <option value="@item.CityID">@item.CityName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="formFile" class="form-label">Fotoğraf Yükle</label>
+                                <input class="form-control" type="file" id="frmVehiclePhotoEdit">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="VehicleModel">Araç Modeli</label>
+                                <input id="txtVehicleModelEdit" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="VehicleFuel">Yakıt Türü:</label>
+                                <input id="txtVehicleFuelEdit" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="VehiclePrice">Araç Fiyatı:</label>
+                                <input id="txtVehiclePriceEdit" type="number" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="District">İlçe</label>
+                                <select class="custom-select form-control-border" id="ddlDistrictEdit">
+                                    <option value="-1">Seçiniz..</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    <button id="btnEdit" type="submit" class="btn btn-success">Güncelle</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+

@@ -1,0 +1,77 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_Infrastructure\\RentACar_Infrastructure.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_Infrastructure\\RentACar_Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_Infrastructure\\RentACar_Infrastructure.csproj",
+        "projectName": "RentACar_Infrastructure",
+        "projectPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_Infrastructure\\RentACar_Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\eneso\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\eneso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[6.0.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

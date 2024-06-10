@@ -1,0 +1,209 @@
+﻿@model VehicleIndexModel
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+@section customStyle{
+    <!-- Template CSS -->
+    <link href="//fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Limelight&display=swap" rel="stylesheet">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/layoutstyle/css/style-starter.css">,
+    <!-- Template CSS -->
+}
+
+@section customJScript{
+    <!--//MENU-JS-->
+    <script src="~lib/jquery/dist/jquery.js"></script>
+    <script src="~/layoutstyle/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Other necessary scripts -->
+    <script src="~/path/to/jquery.countup.js"></script>
+    <script src="~/path/to/jquery.waypoints.min.js"></script>
+    <script src="~/path/to/jquery.magnific-popup.min.js"></script>
+    <script src="~/adminpanel/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="~/layoutstyle/js/theme-change.js"></script>
+    <script src="~/layoutstyle/js/owl.carousel.js"></script>
+    <script src="~/layoutstyle/js/jquery.waypoints.min.js"></script>
+    <script src="~/layoutstyle/js/jquery.countup.js"></script>
+}
+
+<style>
+    .filter-container {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+    }
+
+        .filter-container h5 {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .filter-container hr {
+            border: 1px solid red;
+            width: 50px;
+            margin: 10px 0;
+        }
+
+        .filter-container .form-check {
+            margin-bottom: 10px;
+        }
+</style>
+
+<section class="w3l-about-breadcrumb position-relative text-center">
+    <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+        <div class="container py-lg-5 py-3">
+            <h2 class="title">Araçlarımız</h2>
+            <ul class="breadcrumbs-custom-path mt-2">
+                <li><a href="/Home/Index">ANASAYFA</a></li>
+                <li class="active"><span class="fa fa-angle-double-right mx-2" aria-hidden="true"></span> ARAÇLARIMIZ </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="filter-container">
+                <form id="filterForm" method="post" action="/Vehicles/Filter">
+                    <h5 class="mt-4">Fiyat Aralığı</h5>
+                    <hr>
+                    <div class="form-group d-flex align-items-end">
+                        <input type="number" name="MinPrice" class="form-control form-control-sm mr-2" id="minPrice" placeholder="Min TL">
+                        <input type="number" name="MaxPrice" class="form-control form-control-sm mr-2" id="maxPrice" placeholder="Max TL">
+                        <button id="filterButton" type="button" class="btn btn-primary">Ara</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div id="vehiclesContainer">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-warning">
+                        @ViewBag.Message
+                    </div>
+                }
+                else
+                {
+                    <!-- /features-4 -->
+                    <section>
+                        <div>
+                            <div>
+                                <div class="row">
+                                    @foreach (var item in Model.Vehicles)
+                                    {
+                                        <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                                            <a href="/Vehicles/Details/@item.VehicleID" class="w-100">
+                                                <div class="card card-hover h-100">
+                                                    <img class="card-img-top" src="@item.VehiclePhoto" alt="@item.VehicleBrand">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">@item.VehicleBrand @item.VehicleModel</h5>
+                                                        <p style="color:gray;" class="card-title">@item.CityName @item.District</p>
+                                                        <hr />
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <p class="card-text">
+                                                                    <i style="color:black;" class="fas fa-gas-pump"></i>
+                                                                    @item.VehicleFuel
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <p class="card-text">
+                                                                    <i style="color:black;" class="fa-solid fa-gauge"></i>
+                                                                    @item.VehicleFuelAmount
+                                                                </p>
+                                                            </div>
+                                                        </div><br />
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <p class="card-text">
+                                                                    <i style="color:black;" class="fa-solid fa-paint-roller"></i>
+                                                                    @item.VehicleColor
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <hr />
+                                                        <p style="color:black;" class="card-text">Fiyat: @item.VehiclePrice TL</p><br />
+                                                        <button type="button" class="btn btn-danger float-left">Detaylar</button>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                                <!-- Sayfalama Butonları -->
+                                <div id="paginationButtons" class="float-right text-center"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--//features-4 -->
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('filterButton').addEventListener('click', function () {
+            document.getElementById('filterForm').submit();
+        });
+
+        var cardsPerPage = 9; // Her sayfadaki kart sayısı
+        var currentPage = 1; // Başlangıçta 1. sayfadayız
+        var totalCards = document.querySelectorAll('.card-hover').length; // Toplam kart sayısı
+        var totalPages = Math.ceil(totalCards / cardsPerPage); // Toplam sayfa sayısı
+
+        // Sayfa numarasını güncellemek için kullanılan fonksiyon
+        function updatePageNumber() {
+            document.getElementById('paginationButtons').innerHTML = `
+                    <button id="prevPageBtn" class="btn btn-dark" onclick="prevPage()" ${currentPage === 1 ? 'disabled' : ''}> < Geri </button>
+                    <button id="nextPageBtn" class="btn btn-dark" onclick="nextPage()" ${currentPage === totalPages ? 'disabled' : ''}> İleri > </button>
+                    <p>Page ${currentPage} of ${totalPages}</p>
+                `;
+        }
+
+        // Belirli bir sayfaya gitmek için kullanılan fonksiyon
+        function goToPage(pageNum) {
+            var startIndex = (pageNum - 1) * cardsPerPage;
+            var endIndex = startIndex + cardsPerPage;
+            var cards = document.querySelectorAll('.card-hover');
+
+            cards.forEach(function (card, index) {
+                if (index >= startIndex && index < endIndex) {
+                    card.parentElement.style.display = 'block';
+                } else {
+                    card.parentElement.style.display = 'none';
+                }
+            });
+
+            currentPage = pageNum;
+            updatePageNumber();
+            window.scrollTo(0, 0); // Sayfanın en üstüne git
+        }
+
+        // Bir sonraki sayfaya gitmek için kullanılan fonksiyon
+        function nextPage() {
+            if (currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            }
+        }
+
+        // Bir önceki sayfaya gitmek için kullanılan fonksiyon
+        function prevPage() {
+            if (currentPage > 1) {
+                goToPage(currentPage - 1);
+            }
+        }
+
+        // İlk sayfayı yükle
+        goToPage(1);
+    });
+</script>

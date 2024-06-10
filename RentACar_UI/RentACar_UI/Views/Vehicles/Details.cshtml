@@ -1,0 +1,309 @@
+﻿@using RentACar_ModelsLayer.Entities.Concreate
+@model VehicleDetailsModel
+<style>
+    /* Navbar'a sadece bu sayfada gölge ekleyen stil */
+    #site-header {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5); /* Transparan butonlar için renk */
+        border-radius: 50%;
+    }
+
+    .thumbnail-img {
+        width: 80px;
+        height: 80px;
+        margin: 5px;
+        cursor: pointer;
+    }
+
+    .modal-dialog-centered {
+        max-width: 90%;
+    }
+
+    .modal-body img {
+        width: 100%;
+    }
+</style>
+<div style="margin-top:150px;" class="container mb-5">
+    <div class="row mt-5 border rounded p-4 shadow">
+        <div class="col-md-6">
+            <div id="vehicleCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="@Model.VehiclePhoto" class="d-block w-100" alt="Vehicle Photo" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#vehicleCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#vehicleCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <img src="@Model.VehiclePhoto" class="thumbnail-img" data-bs-target="#vehicleCarousel" data-bs-slide-to="0">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-name">
+                <h2 class="mb-4">@Model.VehicleBrand</h2>
+            </div>
+            <table class="table">
+                <tr>
+                    <th>Marka</th>
+                    <td>@Model.VehicleBrand</td>
+                </tr>
+                <tr>
+                    <th>Model</th>
+                    <td>@Model.VehicleModel</td>
+                </tr>
+                <tr>
+                    <th>Renk</th>
+                    <td>@Model.VehicleColor</td>
+                </tr>
+                <tr>
+                    <th>Yakıt</th>
+                    <td>@Model.VehicleFuel</td>
+                </tr>
+                <tr>
+                    <th>Yakıt Miktarı</th>
+                    <td>@Model.VehicleFuelAmount</td>
+                </tr>
+                <tr>
+                    <th>Fiyat</th>
+                    <td>@Model.VehiclePrice</td>
+                </tr>
+                <tr>
+                    <th>Şehir</th>
+                    <td>@Model.CityName</td>
+                </tr>
+                <tr>
+                    <th>İlçe</th>
+                    <td>@Model.District</td>
+                </tr>
+            </table>
+            <button type="button" class="btn btn-danger" onclick="checkLoginSession()">
+                Rezervasyon Yap
+            </button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Rezervasyon Yap</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="customerName">Üye Adı:</label>
+                            <input type="text" class="form-control" id="customerName" value="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerEmail">Üye Email:</label>
+                            <input type="email" class="form-control" id="customerEmail" value="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleBrand">Araç Markası:</label>
+                            <input type="text" class="form-control" id="vehicleBrand" value="@Model.VehicleBrand" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cityName">Araç Şehri:</label>
+                            <input type="text" class="form-control" id="cityName" value="@Model.CityName" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="reservationStart">Başlangıç Tarihi:</label>
+                            <input type="date" class="form-control" id="reservationStart">
+                        </div>
+                        <div class="form-group">
+                            <label for="ReservationDays">Toplam Gün:</label>
+                            <input type="text" class="form-control" id="ReservationDays" readonly>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="customerLastName">Üye Soyadı:</label>
+                            <input type="text" class="form-control" id="customerLastName" value="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhoneNumber">Üye Telefon Numarası:</label>
+                            <input type="text" class="form-control" id="customerPhoneNumber" value="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleModel">Araç Modeli:</label>
+                            <input type="text" class="form-control" id="vehicleModel" value="@Model.VehicleModel" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">Araç İlçesi:</label>
+                            <input type="text" class="form-control" id="district" value="@Model.District" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="reservationFinish">Bitiş Tarihi:</label>
+                            <input type="date" class="form-control" id="reservationFinish">
+                        </div>
+                        <div
+                        <div class="form-group">
+                            <label for="ReservationPrice">Ödenecek Tutar:</label>
+                            <input type="text" class="form-control" id="ReservationPrice" readonly>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary" id="reserveButton" onclick="makeReservation(@Model.VehicleID)">Rezervasyon Yap</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="modalCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="@Model.VehiclePhoto" alt="Vehicle Photo">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function checkLoginSession() {
+            $.ajax({
+                url: '@Url.Action("CheckActiveUser", "Vehicles")',
+                type: 'GET',
+                success: function (response) {
+                    if (response.isLoggedIn) {
+                        $('#modal-default').modal('show');
+                        fillModalData(response.user, '@Model.VehicleBrand', '@Model.VehicleModel');
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Lütfen Giriş Yapınız.'
+                        });
+                    }
+                }
+            });
+        }
+
+        function fillModalData(user, vehicleBrand, vehicleModel) {
+            if (user !== undefined && user !== null) {
+                $('#customerName').val(user.customerName);
+                $('#customerLastName').val(user.customerLastName);
+                $('#customerEmail').val(user.customerEmail);
+                $('#customerPhoneNumber').val(user.customerPhoneNumber);
+            }
+            $('#vehicleBrand').val(vehicleBrand);
+            $('#vehicleModel').val(vehicleModel);
+        }
+
+        function calculateDaysAndPrice() {
+            const start = new Date($('#reservationStart').val());
+            const end = new Date($('#reservationFinish').val());
+            const timeDiff = Math.abs(end - start);
+            const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            $('#ReservationDays').val(diffDays);
+            const price = diffDays * parseFloat('@Model.VehiclePrice');
+            $('#ReservationPrice').val(price + ' TL');
+        }
+        function makeReservation(vehicleId) {
+            const start = $('#reservationStart').val();
+            const end = $('#reservationFinish').val();
+
+            if (!start || !end) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Lütfen Tarih Kısmını Boş Bırakmayınız.'
+                });
+                return;
+            }
+
+            const currentDate = new Date().toISOString().split('T')[0];
+            if (start < currentDate || end < currentDate) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Lütfen Geçerli Bir Tarih Seçiniz.'
+                });
+                return;
+            }
+
+            if (start >= end) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Başlangıç tarihi, bitiş tarihinden sonra olamaz.'
+                });
+                return;
+            }
+
+            const reservation = {
+                VehicleID: vehicleId,
+                ReservationStart: start,
+                ReservationFinish: end,
+                CustomerName: $('#customerName').val(),
+                CustomerLastName: $('#customerLastName').val(),
+                CustomerEmail: $('#customerEmail').val(),
+                CustomerPhoneNumber: $('#customerPhoneNumber').val(),
+                CityName: $('#cityName').val(),
+                District: $('#district').val(),
+                VehicleBrand: $('#vehicleBrand').val(),
+                VehicleModel: $('#vehicleModel').val(),
+                ReservationPrice: $('#ReservationPrice').val(),
+                ReservationDay: $('#ReservationDays').val(),
+                ReservationOn: true // ReservationOn özelliği true olarak ayarlandı
+            };
+            // Ajax isteği gönder
+            $.ajax({
+                url: '@Url.Action("AddReservation", "Vehicles")',
+                type: 'POST',
+                data: JSON.stringify(reservation),
+                contentType: 'application/json; charset=utf-8'
+            })
+                .then(function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Rezervasyon başarılı'
+                    }).then(function () {
+                        window.location.href = '@Url.Action("Index", "Home")'; // Anasayfaya yönlendir
+                    });
+                })
+                .catch(function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Rezervasyon başarısız',
+                        text: error.responseText
+                    });
+                });
+
+        }
+
+        $('#reservationStart, #reservationFinish').change(calculateDaysAndPrice);
+    </script>

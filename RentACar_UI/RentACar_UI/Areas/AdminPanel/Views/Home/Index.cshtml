@@ -1,0 +1,11 @@
+﻿@model RentACar_ModelsLayer.Entities.Concreate.Admin
+
+@{
+    Layout = "/Areas/AdminPanel/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    @await Component.InvokeAsync("InfoBox", new { BackGround = "bg-danger", Icon = "ion-person", Count = ViewBag.CustomerCount.ToString(), Title = "Admin Sayısı ve Admin Verileri" })
+    @await Component.InvokeAsync("InfoBox", new { BackGround = "bg-warning", Icon = "ion-person-stalker", Count = ViewBag.CustomerCount.ToString(), Title = "Üye Sayısı ve Üye Verileri" })
+    @await Component.InvokeAsync("InfoBox", new { BackGround = "bg-success", Icon = "ion-stats-bars", Count = ViewBag.AdminCount.ToString(), Title = "Rezervasyon Sayısı ve Rezervasyon Verileri" })
+    @await Component.InvokeAsync("InfoBox", new { BackGround = "bg-info", Icon = "ion-model-s", Count = "750", Title = "Araç Sayısı ve Araç Verileri" })
+</div>

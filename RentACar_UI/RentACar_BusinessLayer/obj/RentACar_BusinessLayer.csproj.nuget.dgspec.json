@@ -1,0 +1,214 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_BusinessLayer\\RentACar_BusinessLayer.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_BusinessLayer\\RentACar_BusinessLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_BusinessLayer\\RentACar_BusinessLayer.csproj",
+        "projectName": "RentACar_BusinessLayer",
+        "projectPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_BusinessLayer\\RentACar_BusinessLayer.csproj",
+        "packagesPath": "C:\\Users\\eneso\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_BusinessLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\eneso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_DataAccessLayer\\RentACar_DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_DataAccessLayer\\RentACar_DataAccessLayer.csproj"
+              },
+              "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_ModelsLayer\\RentACar_ModelsLayer.csproj": {
+                "projectPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_ModelsLayer\\RentACar_ModelsLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_DataAccessLayer\\RentACar_DataAccessLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_DataAccessLayer\\RentACar_DataAccessLayer.csproj",
+        "projectName": "RentACar_DataAccessLayer",
+        "projectPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_DataAccessLayer\\RentACar_DataAccessLayer.csproj",
+        "packagesPath": "C:\\Users\\eneso\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_DataAccessLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\eneso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_ModelsLayer\\RentACar_ModelsLayer.csproj": {
+                "projectPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_ModelsLayer\\RentACar_ModelsLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_ModelsLayer\\RentACar_ModelsLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_ModelsLayer\\RentACar_ModelsLayer.csproj",
+        "projectName": "RentACar_ModelsLayer",
+        "projectPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_ModelsLayer\\RentACar_ModelsLayer.csproj",
+        "packagesPath": "C:\\Users\\eneso\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\eneso\\OneDrive\\Masaüstü\\Araç Kiralama\\RentACar_UI\\RentACar_ModelsLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\eneso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

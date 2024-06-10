@@ -1,0 +1,147 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/adminpanel/plugins/sweetalert2/sweetalert2.css" rel="stylesheet" />
+    <style>
+        .bodyimg {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url(/LayoutStyle/images/doga.jpg) no-repeat center center fixed;
+            background-size: cover;
+            background-color: #f8f9fa;
+        }
+
+        .login-form {
+            margin-top: 20% !important;
+            max-width: 400px;
+            margin: auto;
+            padding: 1rem;
+            border-radius: 10px;
+            background-color: #f2f2f2;
+            box-shadow: 0px 0px 10px black;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .login-form .form-control {
+                border-radius: 8px;
+            }
+
+            .login-form .btn-primary {
+                background-color: #d90429;
+                border-color: #d90429;
+            }
+
+                .login-form .btn-primary:hover {
+                    background-color: #ba0224;
+                    border-color: #ba0224;
+                }
+    </style>
+</head>
+
+<body class="bodyimg">
+    <div class="container mt-5">
+        <div class="login-form">
+            <h3 class="text-center">Kullanıcı Girişi</h3>
+            <form action="/Authentication/LogIn" method="post">
+                <div class="form-group">
+                    <label for="txtUserName">Kullanıcı Adı:</label>
+                    <input id="txtUserName" type="text" class="form-control" placeholder="Kullanıcı Adı">
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword">Şifre:</label>
+                    <input id="txtPassword" type="password" class="form-control" placeholder="Şifre">
+                </div>
+                <button id="btnLogIn" type="button" class="btn btn-primary btn-block">Giriş Yap</button>
+                <button id="btnRegister" type="button" class="btn btn-primary btn-block">Kayıt Ol</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="~/adminPanel/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/adminPanel/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/adminPanel/dist/js/adminlte.min.js"></script>
+    <script src="~/adminpanel/plugins/sweetalert2/sweetalert2.all.js"></script>
+
+    <script src="~/adminpanel/plugins/sweetalert2/sweetalert2.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnLogIn").click(function () {
+                var model = {
+                    UserName: $("#txtUserName").val(),
+                    Password: $("#txtPassword").val()
+                };
+                if (model.UserName != "" && model.Password != "") {
+                    $.ajax({
+                        url: "/Authentication/LogIn",
+                        method: "post",
+                        data: { dto: model },
+                        datatype: "json",
+                        success: function (response) {
+                            if (response.result == true) {
+                                window.location.href = "/Home/Index";
+                            }
+                            else {
+                                $("#txtUserName").val('');
+                                $("#txtPassword").val('');
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "İşlem Başarsız",
+                                    text: response.message,
+
+                                });
+                            }
+                        },
+                        error: function () {
+                            Swal.fire({
+                                icon: "warning",
+                                title: "İşlem Başarsız",
+                                text: "Bilinmeyen Bir Hata Oluştu",
+                            });
+                        }
+                    })
+                }
+                else {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "İşlem Başarsız",
+                        text: "Lütfen Boş Bırakılan Yerleri Doldurunuz",
+                    });
+                }
+            });
+
+ 
+            $("#btnRegister").click(function () {
+                window.location.href = "/Authentication/Register";
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+        @if (TempData["AlreadyLoggedIn"] != null && (bool)TempData["AlreadyLoggedIn"] == true)
+        {
+            <text>
+                    toastr.warning("Zaten giriş yaptınız.");
+            </text>
+        }
+                });
+    </script>
+</body>
+</html>
